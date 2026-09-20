@@ -57,6 +57,8 @@ async def test_definition_and_http_lifecycle(context):
     assert plugin.model_dump(mode="json") == {
         "id": "llms-txt",
         "api_version": 1,
+        "authorization": {"scopes": {}},
+        "private_secrets": [],
         "factory": "toolframe_llms_txt.plugin:LlmsProvider",
         "kind": "provider",
         "provider_kind": "llms",

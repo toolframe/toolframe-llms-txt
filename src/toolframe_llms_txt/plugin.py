@@ -11,7 +11,13 @@ from starlette.applications import Starlette
 from starlette.requests import Request
 from starlette.responses import PlainTextResponse
 from starlette.routing import Route
-from toolframe_sdk import OwnedResource, Plugin, PluginDefinition, PluginError
+from toolframe_sdk import (
+    AuthorizationSpec,
+    OwnedResource,
+    Plugin,
+    PluginDefinition,
+    PluginError,
+)
 from toolframe_sdk.http import HttpServer
 
 _OWNER = compile_regex(r"[a-z][a-z0-9-]{0,63}\Z")
@@ -162,6 +168,7 @@ plugin = PluginDefinition(
     kind="provider",
     provider_kind="llms",
     factory="toolframe_llms_txt.plugin:LlmsProvider",
+    authorization=AuthorizationSpec(),
     config_schema={
         "type": "object",
         "properties": {"intro": {"type": "string", "default": ""}},
