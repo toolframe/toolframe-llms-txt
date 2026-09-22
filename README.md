@@ -26,6 +26,18 @@ uv run ruff format --check src tests
 uv build --wheel
 ```
 
+For the complete, isolated CI check (including sdist/wheel metadata, licenses,
+real dependency installation, and installed-wheel HTTP checks), run:
+
+```sh
+bash scripts/ci.sh
+```
+
+This requires Python 3.14.7, uv 0.12.8, and a sibling `toolframe-sdk` Git
+checkout containing the pinned SDK revision. It leaves the working development
+environment untouched. See [CI and publishing](docs/ci.md) for the dependency
+pin, workflow triggers, release commands, and required external setup.
+
 ## License
 
 Licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE).
