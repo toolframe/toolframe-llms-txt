@@ -25,3 +25,7 @@ uv run ruff check src tests
 uv run ruff format --check src tests
 uv build --wheel
 ```
+
+## License
+
+Licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE).
