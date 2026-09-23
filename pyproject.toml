@@ -4,14 +4,14 @@ build-backend = "hatchling.build"
 
 [project]
 name = "toolframe-llms-txt"
-version = "0.2.0"
+version = "0.2.1"
 description = "Standalone llms.txt provider for Toolframe"
 readme = "README.md"
 license = "Apache-2.0"
 license-files = ["LICENSE", "NOTICE"]
 requires-python = ">=3.14"
 dependencies = [
-    "toolframe-sdk==0.2.0",
+    "toolframe-sdk>=0.2,<0.4",
     "starlette==1.6.0",
     "uvicorn==0.42.0",
 ]

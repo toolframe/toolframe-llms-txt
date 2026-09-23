@@ -9,7 +9,7 @@ bash scripts/ci.sh
 ```
 
 The SDK source defaults to `../toolframe-sdk`. It must be a Git checkout that
-contains commit `ef15b3575615839f24b2710beb3e40f9ae3ca2aa`. The script uses
+contains commit `121e60eb5ba77717a382cd474c7a31d2de086d13`. The script uses
 `git archive` of that exact commit, so concurrent or uncommitted SDK changes do
 not affect this validation. To choose another checkout or retain the validated
 distributions, pass paths explicitly:
