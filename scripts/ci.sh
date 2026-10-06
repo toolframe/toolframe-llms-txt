@@ -5,7 +5,7 @@ set -euo pipefail
 repo_root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
 sdk_repo=${1:-"$repo_root/../toolframe-sdk"}
 dist_output=${2:-}
-sdk_revision=a9000ab6ad9743a8f68b5ae3ef7c54fdbf15d6de
+sdk_revision=871416a9f9cbcfa79298235781ff193e1ad08a12
 
 if (( $# > 2 )); then
   printf 'Usage: bash scripts/ci.sh [sdk-repository] [new-distribution-directory]\n' >&2
