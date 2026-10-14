@@ -6,6 +6,17 @@ selected set of `llms.document` resources. The provider owns the public
 serves document text supplied in `OwnedResource.content` and never opens a
 package path or scans a filesystem at request time.
 
+## Install
+
+Install the provider into a running [Toolframe application](https://github.com/toolframe/toolframe-core#readme):
+
+```sh
+toolframe --home APP plugin add pypi:toolframe-llms-txt==0.2.1 --enable
+```
+
+Core resolves dependencies and manages the provider's isolated Python environment.
+The Entry Register template already includes this provider.
+
 Each `prepare` call validates and stages a complete immutable document set for
 its epoch. Staging and aborting leave the current HTTP responses unchanged.
 `commit` atomically selects one staged epoch, replacing the index and its
@@ -37,6 +48,8 @@ This requires Python 3.14.7, uv 0.12.8, and a sibling `toolframe-sdk` Git
 checkout containing the pinned SDK revision. It leaves the working development
 environment untouched. See [CI and publishing](docs/ci.md) for the dependency
 pin, workflow triggers, release commands, and required external setup.
+
+For release validation and Trusted Publisher setup, see [releasing](docs/releasing.md).
 
 ## License
 

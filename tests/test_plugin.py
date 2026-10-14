@@ -71,6 +71,7 @@ async def test_definition_and_http_lifecycle(context):
         "services": {},
         "resources": [],
         "store": None,
+        "runtime_validation": "scratch",
     }
     provider = LlmsProvider(context)
     await provider.activate()

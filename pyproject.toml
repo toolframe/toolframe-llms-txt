@@ -9,12 +9,19 @@ description = "Standalone llms.txt provider for Toolframe"
 readme = "README.md"
 license = "Apache-2.0"
 license-files = ["LICENSE", "NOTICE"]
+authors = [{ name = "byfb", email = "62798989+byfb@users.noreply.github.com" }]
 requires-python = ">=3.14"
 dependencies = [
     "toolframe-sdk>=0.2,<0.4",
     "starlette==1.6.0",
     "uvicorn==0.42.0",
 ]
+
+[project.urls]
+Homepage = "https://github.com/toolframe/toolframe-llms-txt"
+Repository = "https://github.com/toolframe/toolframe-llms-txt"
+Documentation = "https://github.com/toolframe/toolframe-llms-txt#readme"
+Issues = "https://github.com/toolframe/toolframe-llms-txt/issues"
 
 [project.entry-points."toolframe.plugins"]
 llms-txt = "toolframe_llms_txt.plugin:plugin"

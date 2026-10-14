@@ -9,7 +9,7 @@ bash scripts/ci.sh
 ```
 
 The SDK source defaults to `../toolframe-sdk`. It must be a Git checkout that
-contains commit `871416a9f9cbcfa79298235781ff193e1ad08a12`. The script uses
+contains commit `ef91b609137a5fe7bae8e0c893e74b096ff06ffe`. The script uses
 `git archive` of that exact commit, so concurrent or uncommitted SDK changes do
 not affect this validation. To choose another checkout or retain the validated
 distributions, pass paths explicitly:
@@ -87,60 +87,7 @@ job has `id-token: write`, uses the selected GitHub environment, and invokes
 the PyPA publishing action with the appropriate index URL. Publication runs
 for the same tag and index queue without cancelling one another.
 
-## External setup before running remotely
+## Publication
 
-1. Create/configure the actual GitHub `toolframe-llms-txt` repository and enable
-   Actions. Push these workflows to its default branch and include them in the
-   release tag. No GitHub remote or owner is assumed by these files.
-2. Make `toolframe-sdk` and the pinned commit available under the chosen owner.
-   Set the `TOOLFRAME_REPOSITORY_OWNER` repository variable only when that owner
-   differs. The supplied sibling checkout assumes the SDK repository is public;
-   the default `GITHUB_TOKEN` does not grant access to a different private
-   repository. Private sibling access needs a separately designed credential
-   and fork-PR policy before this workflow can use it.
-3. Create GitHub environments named exactly `testpypi` and `pypi`. Configure
-   reviewers and allowed release tags as appropriate for the repository.
-4. On TestPyPI and PyPI separately, add a GitHub Trusted Publisher for the
-   `toolframe-llms-txt` project (or a pending publisher for a new project):
-
-   | Publisher field | Value |
-   | --- | --- |
-   | Owner | The actual GitHub owner of this repository |
-   | Repository | `toolframe-llms-txt` |
-   | Workflow filename | `publish.yml` |
-   | Environment | `testpypi` on TestPyPI; `pypi` on PyPI |
-
-   No PyPI API token is needed. Set up both services independently.
-5. Publish `toolframe-sdk==0.2.0` to the target index before claiming consumers
-   can install this provider from that index alone. CI supplies its own SDK
-   wheel; it does not establish that the SDK is publicly released. TestPyPI
-   may also lack the public third-party dependencies used by the provider.
-
-For the current version `0.2.0`, an authorized maintainer can create and push
-`v0.2.0` at the desired verified commit, then request publication using GitHub
-CLI from this repository:
-
-```sh
-gh workflow run publish.yml --ref v0.2.0 -f repository=testpypi
-# After inspecting the TestPyPI result, publish the same verified release:
-gh workflow run publish.yml --ref v0.2.0 -f repository=pypi
-```
-
-Change the example tag when `project.version` changes. Running the workflow on
-a branch does not publish. Existing index versions/files cannot simply be
-replaced; choose the intended release version before tagging.
-
-The local tag guard can be checked without creating a Git tag:
-
-```sh
-python3.14 scripts/check_release.py refs/tags/v0.2.0
-# Expected to fail:
-python3.14 scripts/check_release.py refs/heads/main
-python3.14 scripts/check_release.py refs/tags/v9.9.9
-```
-
-Local macOS verification and actionlint do not execute a GitHub-hosted Ubuntu
-run or an OIDC upload. This package check also does not establish platform
-support for the full Toolframe application. No remote push, release, package
-upload, environment configuration, or Trusted Publisher registration is
-performed by the local validation command.
+See [releasing](releasing.md) for dependency order, private repository access,
+Trusted Publisher bindings, version tags and consumer installation checks.
