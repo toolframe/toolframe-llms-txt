@@ -62,8 +62,8 @@ git diff --check
 
 ## GitHub workflows
 
-`ci.yml` runs on pushes, pull requests, manual dispatch, and calls from the
-publish workflow. It uses `ubuntu-24.04`, Python 3.14.7, uv 0.12.8, read-only
+`ci.yml` runs on pushes to `main`, pull requests, manual dispatch, and calls from
+the publish workflow. It uses `ubuntu-24.04`, Python 3.14.7, uv 0.12.8, read-only
 repository permissions, SHA-pinned actions, a 20-minute timeout, and the same
 local script. Only successfully validated provider distributions are uploaded
 as the `python-distributions` artifact, retained for seven days. The SDK wheel
