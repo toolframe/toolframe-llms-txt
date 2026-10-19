@@ -371,7 +371,7 @@ wheels = [
 
 [[package]]
 name = "toolframe-llms-txt"
-version = "0.2.1"
+version = "0.3.0"
 source = { editable = "." }
 dependencies = [
     { name = "starlette" },
@@ -404,7 +404,7 @@ dev = [
 
 [[package]]
 name = "toolframe-sdk"
-version = "0.3.0"
+version = "0.4.0"
 source = { editable = "../toolframe-sdk" }
 dependencies = [
     { name = "jsonschema" },
