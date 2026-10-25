@@ -77,15 +77,14 @@ author's owner. The SDK checkout is fixed to the full commit above. There is
 no `pull_request_target` execution or shared reusable-workflow concurrency
 group that could cancel the publish caller.
 
-`publish.yml` runs only on manual dispatch. Its `repository` input selects
-`testpypi` (default) or `pypi`. It first requires `GITHUB_REF` to equal
-`refs/tags/v<project.version>` exactly; branch runs and mismatched tags fail.
-The release guard also rejects any index input other than those two choices.
+`publish.yml` publishes to PyPI only on manual dispatch. It first requires
+`GITHUB_REF` to equal `refs/tags/v<project.version>` exactly; branch runs and
+mismatched tags fail.
 It calls CI from the same workflow revision and checks out `github.sha`, then
 downloads the artifacts from that run without rebuilding them. Only the final
-job has `id-token: write`, uses the selected GitHub environment, and invokes
-the PyPA publishing action with the appropriate index URL. Publication runs
-for the same tag and index queue without cancelling one another.
+job has `id-token: write`, uses the `pypi` GitHub environment, and invokes
+the PyPA publishing action with the PyPI upload URL. Publication runs
+for the same tag queue without cancelling one another.
 
 ## Publication
 
