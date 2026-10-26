@@ -1,61 +1,46 @@
-# Toolframe llms.txt provider
+<p align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/readme-banner-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="docs/assets/readme-banner-light.png">
+  <img src="docs/assets/readme-banner-light.png" alt="Toolframe llms.txt — Publish plugin documentation at /llms.txt and linked Markdown URLs." width="720">
+</picture>
+</p>
 
-`toolframe-llms-txt` is the standalone Toolframe provider for serving the
-selected set of `llms.document` resources. The provider owns the public
-`/llms.txt` index and the linked `/llms/{owner}/{document}.md` documents; it
-serves document text supplied in `OwnedResource.content` and never opens a
-package path or scans a filesystem at request time.
+# Toolframe llms.txt
 
-## Install
+[![CI on main](https://github.com/toolframe/toolframe-llms-txt/actions/workflows/ci.yml/badge.svg?branch=main&event=push)](https://github.com/toolframe/toolframe-llms-txt/actions/workflows/ci.yml?query=branch%3Amain)
 
-Install the provider into a running [Toolframe application](https://github.com/toolframe/toolframe-core#readme):
+Publish plugin documentation at `/llms.txt` and linked Markdown URLs.
+The provider serves the accepted `llms.document` resources supplied by business plugins.
+
+## Quick start
+
+In a running [Toolframe application](https://github.com/toolframe/toolframe-core#readme):
 
 ```sh
 toolframe --home APP plugin add pypi:toolframe-llms-txt==0.3.1 --enable
 ```
 
-Core resolves dependencies and manages the provider's isolated Python environment.
-The Entry Register template already includes this provider.
+Use Python 3.14+ and a compatible SDK. Add a plugin that declares an llms document,
+then open `/llms.txt` on your application's URL. The Entry Register recipe already
+includes this provider and an example document.
 
-Each `prepare` call validates and stages a complete immutable document set for
-its epoch. Staging and aborting leave the current HTTP responses unchanged.
-`commit` atomically selects one staged epoch, replacing the index and its
-documents together. A later epoch can contain fewer or no documents, which
-withdraws entries from the live provider. Other staged epochs remain available
-until they are committed or aborted.
+**Publication:** documents are public. Publish only content intended for anonymous
+readers. Each committed catalog replaces the index and documents together;
+withdrawn resources disappear. The provider serves supplied text and does not
+scan package paths or the filesystem during requests.
 
-The optional `intro` configuration string is placed before the deterministic,
-owner and document ID sorted link list.
+## Guides
 
-From this directory, install the development environment and run the checks:
+| I want to… | Start here |
+| --- | --- |
+| Configure the index and publication | [Document publication](docs/publication.md) |
+| Declare plugin resources | [SDK contracts](https://github.com/toolframe/toolframe-sdk#readme) |
+| Contribute or run checks | [Contributing](CONTRIBUTING.md) · [Verification](docs/ci.md) |
+| Publish a package | [Releasing](docs/releasing.md) |
 
-```sh
-uv sync --group dev
-uv run pytest -q
-uv run ruff check src tests
-uv run ruff format --check src tests
-uv build --wheel
-```
-
-For the complete, isolated CI check (including sdist/wheel metadata, licenses,
-real dependency installation, and installed-wheel HTTP checks), run:
-
-```sh
-bash scripts/ci.sh
-```
-
-This requires Python 3.14.7, uv 0.12.8, and a sibling `toolframe-sdk` Git
-checkout containing the pinned SDK revision. It leaves the working development
-environment untouched. See [CI and publishing](docs/ci.md) for the dependency
-pin, workflow triggers, release commands, and required external setup.
-
-For release validation and Trusted Publisher setup, see [releasing](docs/releasing.md).
+[Releases](https://github.com/toolframe/toolframe-llms-txt/releases)
 
 ## License
 
-Licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE).
-
-For development hooks and contribution rules, see [Contributing](CONTRIBUTING.md).
-
-Plugin dependencies allow compatible SDK 0.x updates from the declared minimum.
-See the [SDK compatibility policy](https://github.com/toolframe/toolframe-sdk/blob/main/docs/compatibility.md) for API guarantees and minimum/latest verification.
+[Apache 2.0](LICENSE), with [NOTICE](NOTICE).
